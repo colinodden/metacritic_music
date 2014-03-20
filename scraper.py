@@ -17,6 +17,8 @@ xp_item_product_url = lxml.etree.XPath('.//h3[@class="product_title"]/a/@href')
 xp_item_artist = lxml.etree.XPath('.//span[@class="product_artist"]')
 xp_item_image = lxml.etree.XPath('.//img[re:test(@class, "^product_image(\s|$)")]/@src')
 css_metascore = lxml.cssselect.CSSSelector("span.metascore")
+#user_metascore = lxml.cssselect.CSSSelector("span.metascore_w user large album positive")
+#user_basedon = lxml.etree.XPath('.//div[@class="summary"]/p/span[@class="count"]/strong')
 for el in xp_items(root):
     item = {"artist": None, "title": None, "image": None, "score": None, "url": None}
     for t in xp_item_product_title (el):
@@ -27,9 +29,9 @@ for el in xp_items(root):
         item['artist'] = lxml.html.tostring(a, method="text", encoding=unicode).strip(' -')
         break
 
-    for i in xp_item_image (el):
-        item['image'] = i
-        break
+#    for i in xp_item_image (el):
+#        item['image'] = i
+#        break
 
     for s in css_metascore (el):
         item['score'] = s.text_content()
